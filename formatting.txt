@@ -1,0 +1,28 @@
+======================================================================
+                     C PRINTF FORMAT SPECIFIERS
+======================================================================
+
+ SPECIFIER | DATA TYPE               | OUTPUT FORMAT / EXAMPLE
+-----------|-------------------------|--------------------------------
+ %d or %i  | int                     | Signed decimal integer (e.g., -42, 100)
+ %u        | unsigned int            | Unsigned decimal integer (e.g., 42)
+ %f        | float                   | Decimal floating-point (e.g., 3.141592)
+ %lf       | double                  | Double floating-point (long float)
+ %c        | char                    | Single character (e.g., 'A')
+ %s        | char* (string)          | Sequence of characters (e.g., "Hello")
+ %x        | int (hexadecimal)       | Unsigned hex, lowercase (e.g., 7fa)
+ %X        | int (hexadecimal)       | Unsigned hex, uppercase (e.g., 7FA)
+ %o        | int (octal)             | Unsigned octal base-8 (e.g., 77)
+ %p        | void* (pointer)         | Memory address in hex (e.g., 0x7ffe5)
+ %e or %E  | float/double            | Scientific notation (e.g., 1.23e+04)
+ %g or %G  | float/double            | Uses the shorter of %f or %e
+ %%        | None                    | Prints a literal '%' character
+
+----------------------------------------------------------------------
+                  MOST COMMON ESCAPE SEQUENCES
+----------------------------------------------------------------------
+ \n        | Newline (moves cursor to the next line)
+ \t        | Horizontal Tab (adds a block of spaces)
+ \\        | Prints a literal backslash
+ \"        | Prints a literal double quote
+======================================================================

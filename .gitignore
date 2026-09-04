@@ -1,0 +1,16 @@
+a.out
+main.c
+test.c
+test.out
+
+/file_handling/
+/memory_management/
+/pointers/
+/student_management_system/
+/cirular_buffers/
+/string/
+/openssl/
+/linked_lists/
+/number_system/
+/queues/
+/.vscode/

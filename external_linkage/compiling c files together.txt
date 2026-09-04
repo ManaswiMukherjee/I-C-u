@@ -1,0 +1,2 @@
+to compile -  gcc file1.c file2.c -o save_as_file
+to run -  ./save_as_file
