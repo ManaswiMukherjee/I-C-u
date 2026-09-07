@@ -49,7 +49,7 @@ int main(void)
 
     if (c_sockfd==-1){errorhandler("client accept problem");}
     
-    const char* send_buf = "Hello World";
+    const char send_buf[] = "Hello World";
     write(c_sockfd, send_buf, sizeof(send_buf));//writing to the connected client
 
     
