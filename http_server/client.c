@@ -25,9 +25,10 @@ int main()
     socklen_t addr_len = sizeof(server_addr);
     if(connect(sockfd, (const struct sockaddr *)&server_addr, addr_len)){errorhandler("connection error");}
     
-    char read_msg[100];
-    read(sockfd,read_msg,sizeof(read_msg));
-    printf("%d",sizeof read_msg);
+    char read_msg[1000];     //100 is a size we would like to read at once
+    read(sockfd, read_msg, sizeof(read_msg));
+    printf("%d\n",sizeof read_msg);
+    printf("%s", read_msg);
     
     close(sockfd);
 

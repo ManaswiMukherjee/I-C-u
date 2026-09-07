@@ -49,13 +49,13 @@ int main(void)
 
     if (c_sockfd==-1){errorhandler("client accept problem");}
     
-    const char send_buf[100];
-    write(c_sockfd,send_buf,sizeof(send_buf));//writing to the connected client
+    const char* send_buf = "Hello World";
+    write(c_sockfd, send_buf, sizeof(send_buf));//writing to the connected client
 
     
-    close(c_sockfd);//closing client socket
+    close(c_sockfd);    //closing client socket
     
-    close(sockfd);//closing server socket
+    close(sockfd);      //closing server socket
     return 0;
 }
 
