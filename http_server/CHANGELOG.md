@@ -11,3 +11,22 @@ Hello Wo
 
 ### Fix - Changed from pointer string to fixed array string. `sizeof` is not workable with pointer strings it is for array strings.
 ### We could also use `strlen(send_buf)`
+
+## Error3 - BUFFER OVER-READ stack info got leaked
+
+**Identity/account info:**
+- Your username (`Manaswi`), full home directory path, hostname (`fedora`), and your Linux distro (Fedora, XFCE desktop)
+
+**System paths and config:**
+- Various `XDG_*` paths, config/cache directories, and your `PWD` at the time — revealing your exact working directory (`/home/Manaswi/Desktop/C programs/http_server`), which also tells you the project folder name
+
+**Development environment details:**
+- VS Code extension paths and debugger socket paths
+- Python-related env vars (`PYTHONSTARTUP`, `IDF_PATH` pointing to an ESP8266 SDK — suggesting you also do embedded/IoT dev)
+- Editor (`nano`), locale (`en_IN.utf8` — suggesting India-based locale settings)
+
+**Session/auth-adjacent info:**
+- `SSH_AUTH_SOCK` path (a socket path used by your SSH agent — not a key itself, but reveals the agent socket location)
+- `SESSION_MANAGER`, `XDG_RUNTIME_DIR`, `DISPLAY` — desktop session internals
+
+### Fix - changed fwrite line `fwrite(read_msg, 1, nbytes, stdout);`
