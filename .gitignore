@@ -14,3 +14,4 @@ test.out
 /number_system/
 /queues/
 /.vscode/
+*.out
