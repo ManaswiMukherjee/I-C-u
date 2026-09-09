@@ -24,37 +24,45 @@ int main(void)
     /* UNCOMMENT THIS AND COMMENT OUT THE ABOVE LINE IF YOU WANT TO ENTER YOUR OWN IP ADDRESS
     char *ip="YOUR_IP_ADDRESS";
     if(inet_pton(AF_INET, ip, &server_addr.sin_addr)){errorhandler("ip assign error")};        
-                        //user gives the ip address
+    //user gives the ip address
     */
 
 
 
-    if((sockfd = socket(AF_INET, SOCK_STREAM, 0))==-1){errorhandler("socket creation problem");}
+    if((sockfd = socket(AF_INET, SOCK_STREAM, 0)) == -1){errorhandler("socket creation problem");}
     //creating a socket
 
-    if((bind(sockfd, (const struct sockaddr *)&server_addr, (socklen_t)sizeof(server_addr)))==-1){errorhandler("binding problem");}
+    if((bind(sockfd, (const struct sockaddr *)&server_addr, (socklen_t)sizeof(server_addr))) == -1){errorhandler("binding problem");}
     //binding the socket to an address
 
-    if((listen(sockfd,2))==-1){errorhandler("listen problem");}
+    if((listen(sockfd,2)) == -1){errorhandler("listen problem");}
     //listening for a connection
 
     
-    int c_sockfd;//socket file for client
+    int c_sockfd;                       //socket file for client
     bzero(&c_sockfd,sizeof(c_sockfd));
-    struct sockaddr_in client_addr;//declaring a variable(server_addr) of type [struct sockaddr_in] for client
+    struct sockaddr_in client_addr;     //declaring a variable(server_addr) of type [struct sockaddr_in] for client
     
-    socklen_t addr_len = sizeof(client_addr);
-    if((c_sockfd = accept(sockfd, (struct sockaddr *)&client_addr, &addr_len))==-1){errorhandler("accept error");}
-    //accept incoming connections from client
 
-    if (c_sockfd==-1){errorhandler("client accept problem");}
+    // loop structure for multiple connections
+    while(1){
+    socklen_t addr_len = sizeof(client_addr);   // 
+
+    if((c_sockfd = accept(sockfd, (struct sockaddr *)&client_addr, &addr_len)) == -1){errorhandler(" client accept error");}
+    //accept incoming connections from client
+    
     
     const char send_buf[] = "Hello World";
-    write(c_sockfd, send_buf, sizeof(send_buf));//writing to the connected client
-
+    ssize_t w_sz = write(c_sockfd, send_buf, sizeof(send_buf)); // writing to the connected client
+    
+    char dst[INET_ADDRSTRLEN];
+    inet_ntop(AF_INET, &client_addr.sin_addr , dst, INET_ADDRSTRLEN);
+    printf("Wrote %zd bytes to %s through port %u\n", w_sz, dst, ntohs(client_addr.sin_port));
     
     close(c_sockfd);    //closing client socket
+    }    
     
+    // control never reaches these lines, like mcu programming no return 0 statement there.
     close(sockfd);      //closing server socket
     return 0;
 }

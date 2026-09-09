@@ -30,10 +30,8 @@ int main()
     
     if(nbytes > 0){
         fwrite(read_msg, 1, nbytes, stdout);
-    printf("%d\n",sizeof read_msg);
+    printf("\n%d\n",sizeof read_msg);
     }
-    
-    printf("%s", read_msg);
     
     close(sockfd);
 

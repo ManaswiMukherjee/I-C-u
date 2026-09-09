@@ -17,7 +17,8 @@
  %e or %E  | float/double            | Scientific notation (e.g., 1.23e+04)
  %g or %G  | float/double            | Uses the shorter of %f or %e
  %%        | None                    | Prints a literal '%' character
-
+ %zu       | size_t                  | for unsigned size_t TYPE
+ %zd       | size_t                  | for signed size_t TYPE
 ----------------------------------------------------------------------
                   MOST COMMON ESCAPE SEQUENCES
 ----------------------------------------------------------------------

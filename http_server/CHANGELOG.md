@@ -30,3 +30,40 @@ Hello Wo
 - `SESSION_MANAGER`, `XDG_RUNTIME_DIR`, `DISPLAY` — desktop session internals
 
 ### Fix - changed fwrite line `fwrite(read_msg, 1, nbytes, stdout);`
+
+
+## For accepting connections one by one, does the packet of B get lost while A's packet is being processed(Both the packets were sent at once).
+#### listen holds those packets
+
+## Grouping of lines below in fresh and one time declaration for use in loop structure
+
+```C
+int c_sockfd;
+bzero(&c_sockfd,sizeof(c_sockfd));
+struct sockaddr_in client_addr;
+socklen_t addr_len = sizeof(client_addr);
+if((c_sockfd = accept(sockfd, ...))==-1){errorhandler("accept error");}
+if (c_sockfd==-1){errorhandler("client accept problem");}
+const char send_buf[] = "Hello World";
+write(c_sockfd, send_buf, sizeof(send_buf));
+close(c_sockfd);
+```
+
+### one time
+```C
+int c_sockfd;
+bzero(&c_sockfd,sizeof(c_sockfd));
+struct sockaddr_in client_addr;
+```
+
+### fresh inits
+```c
+socklen_t addr_len = sizeof(client_addr);
+if((c_sockfd = accept(sockfd, ...))==-1){errorhandler("accept error");}
+if (c_sockfd==-1){errorhandler("client accept problem");}
+const char send_buf[] = "Hello World";
+write(c_sockfd, send_buf, sizeof(send_buf));
+close(c_sockfd);
+```
+
+### `socklen_t addr_len = sizeof(client_addr);` stores the budget for the size of type of socket we are using, here sockaddr_in and not ipv6
