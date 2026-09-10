@@ -25,13 +25,23 @@ int main()
     socklen_t addr_len = sizeof(server_addr);
     if(connect(sockfd, (const struct sockaddr *)&server_addr, addr_len)){errorhandler("connection error");}
     
-    char read_msg[1000];     //100 is a size we would like to read at once
-    int nbytes = read(sockfd, read_msg, sizeof(read_msg));
-    
-    if(nbytes > 0){
-        fwrite(read_msg, 1, nbytes, stdout);
-    printf("\n%d\n",sizeof read_msg);
+    char* read_msg = NULL;
+    size_t buf_size = 1024 * 1024;
+    read_msg = calloc(buf_size, sizeof(char));
+    if(read_msg == NULL){errorhandler("cannot init array");}
+
+    ssize_t r_ptr = 0;
+    int count = 0;
+    while((size_t)r_ptr != buf_size){
+        ssize_t r_sz = read(sockfd, &read_msg[r_ptr], buf_size - r_ptr);
+        if(r_sz == -1){errorhandler("read problem");}
+        if(r_sz == 0){break;}  // server closed connection / EOF before full buffer received
+        printf("Read %zd bytes in iteration %d, total %zd so far\n", r_sz, count, r_ptr);
+        count += 1;
+        r_ptr += r_sz;
     }
+
+    printf("\nTotal received: %zd bytes\n", r_ptr);
     
     close(sockfd);
 
